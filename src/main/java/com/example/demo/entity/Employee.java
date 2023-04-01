@@ -26,9 +26,7 @@ public class Employee implements Serializable {
     @Column
     private String position;
 
-    /*
-        Druga strana bidirekcione veze 1:n
-     */
+   
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Department department;
 
@@ -44,6 +42,15 @@ public class Employee implements Serializable {
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
     private Set<Project> projects = new HashSet<>();
+	
+    @ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private Address address;
+    
+
+
+
+
+
 
     public Long getId() {
         return id;
@@ -92,6 +99,7 @@ public class Employee implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", position='" + position + '\'' +
+		", address='" + address + '\'' +
                 ", department=" + department +
                 '}';
     }

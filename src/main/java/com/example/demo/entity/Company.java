@@ -16,12 +16,11 @@ public class Company implements Serializable {
     @Column
     private String name;
 
-    @Column
-    private String address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
-    /*
-        pogledati komentare iznad atributa employees u klasi Department
-     */
+
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>();
 
@@ -42,11 +41,11 @@ public class Company implements Serializable {
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
